@@ -6,9 +6,41 @@ dist/
 wheels/
 *.egg-info
 
+
 # Virtual environments
 .venv
 
 
 /models
 /output
+
+# IDEs and editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.dbmdl
+*.dbproj.schemaview
+*.idb
+*.sdf
+*.cachefile
+*.opensdf
+*.VC.db
+*.VC.VC.opendb
+*.suo
+*.ncb
+*.opendb
+*.sln.docstates
+*.user
+*.userosscache
+*.sln.docstates
+*.scc
+*.plg
+*.aps
+*.VC.dbproj
+
+# macOS
+.DS_Store
