@@ -1,112 +1,112 @@
 # MoGe Model HTTP API
 
-这个项目提供了一个 HTTP API 服务，用于通过 ONNX 模型运行 MoGe（Monocular Geometric Model）推理。
+This project provides an HTTP API service for running MoGe (Monocular Geometric Model) inference through an ONNX model.
 
-## 功能
+## Features
 
-- 通过 HTTP 接口访问 MoGe 模型
-- 自动下载模型文件（首次运行时）
-- 支持图像上传和处理
-- 返回处理后的法线图结果
+- Access MoGe model through HTTP interface
+- Automatic model file download (on first run)
+- Support for image upload and processing
+- Returns processed normal map results
 
-## 安装依赖
+## Install Dependencies
 
 ```bash
 uv sync
 ```
 
-## 启动服务
+## Start Service
 
-### 直接运行
+### Direct Run
 ```bash
 uv run python main.py
 ```
 
-### 使用 Docker
+### Using Docker
 ```bash
 docker build -t moge-api .
 docker run -p 8000:8000 moge-api
 ```
 
-### 使用 Docker Compose
+### Using Docker Compose
 ```bash
 docker-compose up
 ```
 
-服务将在 `http://localhost:8000` 上运行。
+The service will run on `http://localhost:8000`.
 
-## API 端点
+## API Endpoints
 
 ### `GET /`
 
-返回 API 信息和可用端点。
+Returns API information and available endpoints.
 
 ### `POST /process`
 
-处理上传的图像。
+Processes uploaded images.
 
-**参数:**
-- `image`: 上传的图像文件（必需）
-- `num_tokens`: num_tokens 参数值（可选，默认为 1024）
+**Parameters:**
+- `image`: Uploaded image file (required)
+- `num_tokens`: num_tokens parameter value (optional, default is 1024)
 
-**返回:**
-- 处理后的 PNG 图像文件
+**Returns:**
+- Processed PNG image file
 
-## 使用示例
+## Usage Examples
 
-### 使用 cURL
+### Using cURL
 
 ```bash
 curl -X POST -F "image=@./assets/source.jpg" -o ./output/result.png http://localhost:8000/process
 ```
 
-### 使用 Python 客户端
+### Using Python Client
 
 ```bash
 python moge_client.py http://localhost:8000 ./assets/source.jpg ./output/result.png
 ```
 
-### 使用原始命令行方式
+### Using Original Command Line Version
 
 ```bash
 uv run python run_moge_model.py ./assets/source.jpg
 ```
 
-## Docker 部署
+## Docker Deployment
 
-### 构建 Docker 镜像
+### Build Docker Image
 ```bash
 docker build -t moge-api .
 ```
 
-### 运行 Docker 容器
+### Run Docker Container
 ```bash
 docker run -p 8000:8000 -v ./models:/app/models -v ./output:/app/output moge-api
 ```
 
-### 使用 Docker Compose
+### Using Docker Compose
 ```bash
 docker-compose up
 ```
 
-Docker 部署会自动：
-1. 安装所有依赖
-2. 在容器启动时下载模型（首次运行时）
-3. 挂载模型和输出目录以实现持久化存储
+Docker deployment will automatically:
+1. Install all dependencies
+2. Download model on container startup (on first run)
+3. Mount model and output directories for persistent storage
 
-## 项目结构
+## Project Structure
 
-- `main.py`: 项目入口点，启动 FastAPI 服务
-- `moge_api.py`: FastAPI 服务实现
-- `run_moge_model.py`: 原始命令行版本
-- `moge_client.py`: Python 客户端示例
-- `Dockerfile`: Docker 镜像构建文件
-- `docker-compose.yml`: Docker Compose 配置文件
-- `models/`: 模型文件存储目录
-- `assets/`: 示例图像
-- `output/`: 输出结果目录
+- `main.py`: Project entry point, starts FastAPI service
+- `moge_api.py`: FastAPI service implementation
+- `run_moge_model.py`: Original command line version
+- `moge_client.py`: Python client example
+- `Dockerfile`: Docker image build file
+- `docker-compose.yml`: Docker Compose configuration file
+- `models/`: Model file storage directory
+- `assets/`: Sample images
+- `output/`: Output results directory
 
-## 依赖
+## Dependencies
 
 - FastAPI
 - Uvicorn
@@ -115,10 +115,10 @@ Docker 部署会自动：
 - Pillow
 - Requests
 
-## 注意事项
+## Notes
 
-1. 首次运行时会自动从 Hugging Face 下载模型文件
-2. 模型文件存储在 `./models/moge_model.onnx`
-3. 服务启动时会预加载模型以提高响应速度
-4. 支持的图像格式取决于 Pillow 库的支持
-5. Docker 部署会将模型和输出目录挂载到宿主机，以实现持久化存储
+1. Model files will be automatically downloaded from Hugging Face on first run
+2. Model files are stored in `./models/moge_model.onnx`
+3. Model is pre-loaded on service startup for improved response speed
+4. Supported image formats depend on Pillow library support
+5. Docker deployment mounts model and output directories to host for persistent storage

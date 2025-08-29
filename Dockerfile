@@ -1,29 +1,29 @@
-# 使用官方 Python 运行时作为基础镜像
+# Use official Python runtime as base image
 FROM python:3.13-slim
 
-# 设置工作目录
+# Set working directory
 WORKDIR /app
 
-# 安装系统依赖
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# 复制项目文件
+# Copy project files
 COPY . .
 
-# 安装 uv
+# Install uv
 RUN pip install uv
 
-# 使用 uv 安装项目依赖
+# Use uv to install project dependencies
 RUN uv sync
 
-# 暴露端口
+# Expose port
 EXPOSE 8000
 
-# 设置环境变量
+# Set environment variables
 ENV PYTHONPATH=/app
 
-# 启动服务
+# Start service
 CMD ["uv", "run", "python", "main.py"]
