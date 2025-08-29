@@ -19,7 +19,7 @@ uv sync
 
 ### 直接运行
 ```bash
-uv run python moge_api.py
+uv run python main.py
 ```
 
 ### 使用 Docker
@@ -57,7 +57,7 @@ docker-compose up
 ### 使用 cURL
 
 ```bash
-curl -X POST -F "image=@./assets/source.jpg" -o result.png http://localhost:8000/process
+curl -X POST -F "image=@./assets/source.jpg" -o ./output/result.png http://localhost:8000/process
 ```
 
 ### 使用 Python 客户端
@@ -96,6 +96,7 @@ Docker 部署会自动：
 
 ## 项目结构
 
+- `main.py`: 项目入口点，启动 FastAPI 服务
 - `moge_api.py`: FastAPI 服务实现
 - `run_moge_model.py`: 原始命令行版本
 - `moge_client.py`: Python 客户端示例

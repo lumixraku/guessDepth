@@ -26,4 +26,4 @@ EXPOSE 8000
 ENV PYTHONPATH=/app
 
 # 启动服务
-CMD ["uv", "run", "python", "moge_api.py"]
+CMD ["uv", "run", "python", "main.py"]
